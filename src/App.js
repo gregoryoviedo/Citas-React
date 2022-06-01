@@ -42,7 +42,7 @@ function App() {
 
   return (
     <Fragment>
-      <h1>Administrador de Pacientes</h1>
+      <h1>Administrador de Pacientes con modificacion para marge</h1>
       <div className="container">
         <div className="row">
           <div className="one-half column">
