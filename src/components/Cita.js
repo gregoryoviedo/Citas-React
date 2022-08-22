@@ -1,24 +1,44 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
+import { UilTrash } from "@iconscout/react-unicons";
 
-const Cita = ({cita, eliminarCita}) => ( 
+const Cita = ({ cita, eliminarCita }) => {
+  const { id, mascota, propietario, tipo, fecha, hora, sintomas } = cita;
+  return (
     <div className="cita">
-        <p>Mascota: <span>{cita.mascota}</span> </p>
-        <p>Dueño: <span>{cita.propietario}</span> </p>
-        <p>Fecha: <span>{cita.fecha}</span> </p>
-        <p>Hora: <span>{cita.hora}</span> </p>
-        <p>Sintomas: <span>{cita.sintomas}</span> </p>
+      <p>
+        Mascota: <span>{mascota}</span>
+      </p>
+      <p>
+        Dueño: <span>{propietario}</span>
+      </p>
+      <p>
+        Tipo: <span>{tipo}</span>
+      </p>
+      <p>
+        Fecha: <span>{fecha}</span>
+      </p>
+      <p>
+        Hora: <span>{hora}</span>
+      </p>
+      <p>
+        Sintomas: <span>{sintomas}</span>
+      </p>
 
-        <button 
+      <button
         className="button eliminar u-full-width"
-        onClick={ () => eliminarCita(cita.id)}
-        >Eliminar &times;</button>
+        onClick={() => eliminarCita(id)}
+      >
+        Eliminar
+        <UilTrash />
+      </button>
     </div>
-);
+  );
+};
 
 Cita.propTypes = {
-    cita: PropTypes.object.isRequired,
-    eliminarCita: PropTypes.func.isRequired
-}
- 
+  cita: PropTypes.object.isRequired,
+  eliminarCita: PropTypes.func.isRequired,
+};
+
 export default Cita;

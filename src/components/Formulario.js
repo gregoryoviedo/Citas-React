@@ -1,127 +1,97 @@
-import React, { Fragment, useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
+import {
+  UilExclamationTriangle,
+  UilFolderPlus,
+} from "@iconscout/react-unicons";
+import { useFormulario } from "../hooks/useFormulario";
 
-const Formulario = ({crearCita}) => {
+const Formulario = ({ crearCita }) => {
+  const { cita, actualizarState, submitcita, error } = useFormulario({
+    crearCita,
+  });
 
-    //Crear State de Citas
-    const [cita, actualizarCita] = useState ({
-        mascota: '',
-        propietario: '',
-        fecha: '',
-        hora: '',
-        sintomas: ''
-    });
+  return (
+    <>
+      <h2>Crear cita</h2>
 
-    //Crear State de errir
-    const [ error, ActualizarError ] = useState(false)
+      {error && (
+        <p className="alerta-error">
+          <UilExclamationTriangle className="icon-warning" />
+          Todos los campos son obligatorios
+          <UilExclamationTriangle className="icon-warning" />
+        </p>
+      )}
 
-    //Funcion que se ejecuta cada que el usuario escribe en un input
-    const actualizarState = (e) => {
-        actualizarCita({
-            ...cita,
-            [e.target.name]: e.target.value
-        });
-    }
+      <form onSubmit={submitcita}>
+        <label>Nombre Mascota</label>
+        <input
+          type="text"
+          name="mascota"
+          className="u-full-width"
+          placeholder="Nombre Mascota"
+          onChange={actualizarState}
+          value={cita.mascota}
+        />
 
-    //Extraer los datos
-    const { mascota, propietario, fecha, hora, sintomas } = cita;
+        <label>Tipo</label>
+        <select className="u-full-width" name="tipo" value={cita.tipo} onChange={actualizarState}>
+          <option value="selecciona">Selecciona</option>
+          <option value="Perro 🐶">Perro</option>
+          <option value="Gato 🐱">Gato</option>
+          <option value="Hamster 🐹">Hamster</option>
+          <option value="Conejo 🐰">Conejo</option>
+          <option value="Pajaro 🐦">Pajaro</option>
+        </select>
 
-    //Cuando el usuario presione agregar cita
-    const submitcita = (e) =>{
-        e.preventDefault();
+        <label>Nombre Dueño</label>
+        <input
+          type="text"
+          name="propietario"
+          className="u-full-width"
+          placeholder="Nombre Dueño de la mascota"
+          onChange={actualizarState}
+          value={cita.propietario}
+        />
 
-        //Validar
-        if (mascota.trim() === '' || propietario.trim() === '' || fecha.trim() === '' || hora.trim() === '' || sintomas.trim() === '') {
-            ActualizarError(true);
-            return;
-        }
+        <label>Fecha</label>
+        <input
+          type="date"
+          name="fecha"
+          className="u-full-width"
+          onChange={actualizarState}
+          value={cita.fecha}
+        />
 
-        //Eliminar el mensaje previo
-        ActualizarError(false);
+        <label>Hora</label>
+        <input
+          type="time"
+          
+          name="hora"
+          className="u-full-width"
+          onChange={actualizarState}
+          value={cita.hora}
+        />
 
-        //Asignar un ID
-        cita.id = uuidv4();
+        <label>Sintomas</label>
+        <textarea
+          className="u-full-width"
+          name="sintomas"
+          onChange={actualizarState}
+          value={cita.sintomas}
+        ></textarea>
 
-        //Crear la cita
-        crearCita(cita);
-
-        //Reiniciar el form
-        actualizarCita({
-            mascota: '',
-            propietario: '',
-            fecha: '',
-            hora: '',
-            sintomas: ''
-        });
-    }
-
-    return ( 
-        <Fragment>
-            <h2>Crear cita</h2>
-
-            { error ? <p className="alerta-error">Todos los campos son obligatorioas</p>   :null}
-
-            <form
-                onSubmit={submitcita}
-            >
-                <label>Nombre Mascota</label>
-                <input 
-                    type="text"
-                    name="mascota"
-                    className="u-full-width"
-                    placeholder="Nombre Mascota"
-                    onChange={actualizarState}
-                    value={mascota}
-                />
-
-                <label>Nombre Dueño</label>
-                <input 
-                    type="text"
-                    name="propietario"
-                    className="u-full-width"
-                    placeholder="Nombre Dueño de la mascota"
-                    onChange={actualizarState}
-                    value={propietario}
-                />
-                
-                <label>Fecha</label>
-                <input 
-                    type="date"
-                    name="fecha"
-                    className="u-full-width"
-                    onChange={actualizarState}
-                    value={fecha}
-                />
-
-                <label>Hora</label>
-                <input 
-                    type="time"
-                    name="hora"
-                    className="u-full-width"
-                    onChange={actualizarState}
-                    value={hora}
-                />
-
-                <label>Sintomas</label>
-                <textarea
-                    className="u-full-width"
-                    name="sintomas"
-                    onChange={actualizarState}
-                    value={sintomas}
-                ></textarea>
-
-                <button
-                    type="submit"
-                    className="u-full-width button-primary"
-                >Agregar Cita</button>
-            </form>
-        </Fragment>
-    );
-}
+        <button type="submit" className="u-full-width button agregar">
+          Agregar Cita
+          <UilFolderPlus />
+        </button>
+      </form>
+    </>
+  );
+};
 
 Formulario.propTypes = {
-    crearCita: PropTypes.func.isRequired
-}
+  crearCita: PropTypes.func.isRequired,
+};
 
 export default Formulario;
