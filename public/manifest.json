@@ -1,6 +1,10 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Administrador de Pacientes",
+  "name": "Administrador de Pacientes",
+  "categories": ["lifestyle", "music"],
+  "description": "PWA para la administracion de paciente animales",
+  "dir": "ltr",
+  "display_override": ["standalone", "fullscreen"],
   "icons": [
     {
       "src": "favicon.ico",
@@ -18,8 +22,12 @@
       "sizes": "512x512"
     }
   ],
-  "start_url": ".",
+  "start_url": "/",
+  "lang": "es-MX",
+  "orientation": "portrait",
+  "prefer_related_application": false,
+  "scope": "/",
   "display": "standalone",
-  "theme_color": "#000000",
+  "theme_color": "#6c0f7b",
   "background_color": "#ffffff"
 }
